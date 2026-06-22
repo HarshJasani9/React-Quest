@@ -32,6 +32,20 @@ import lesson3_3 from './modules/03-lists-keys-conditional/3.3-conditional-rende
 import lesson4_1 from './modules/04-composition-lifting-state/4.1-children-composition.js'
 import lesson4_2 from './modules/04-composition-lifting-state/4.2-lifting-state-up.js'
 import lesson4_3 from './modules/04-composition-lifting-state/4.3-callback-props.js'
+import lesson5_1 from './modules/05-side-effects-lifecycle/5.1-what-counts-side-effect.js'
+import lesson5_2 from './modules/05-side-effects-lifecycle/5.2-useeffect-running-after-render.js'
+import lesson5_3 from './modules/05-side-effects-lifecycle/5.3-dependency-array.js'
+import lesson5_4 from './modules/05-side-effects-lifecycle/5.4-cleanup-functions.js'
+import lesson6_1 from './modules/06-context-global-state/6.1-prop-drilling-problem.js'
+import lesson6_2 from './modules/06-context-global-state/6.2-context-direct-line.js'
+import lesson6_3 from './modules/06-context-global-state/6.3-when-not-use-context.js'
+import lesson7_1 from './modules/07-refs-dom/7.1-what-refs-for.js'
+import lesson7_2 from './modules/07-refs-dom/7.2-refs-no-rerender.js'
+import lesson8_1 from './modules/08-custom-hooks/8.1-extracting-logic.js'
+import lesson8_2 from './modules/08-custom-hooks/8.2-rules-of-hooks.js'
+import lesson9_1 from './modules/09-performance/9.1-optimization-need.js'
+import lesson9_2 from './modules/09-performance/9.2-react-memo.js'
+import lesson9_3 from './modules/09-performance/9.3-usememo-usecallback.js'
 
 // Aggregated modules list in chronological order
 export const modules = [
@@ -65,6 +79,20 @@ export const lessons = {
   '4.1': lesson4_1,
   '4.2': lesson4_2,
   '4.3': lesson4_3,
+  '5.1': lesson5_1,
+  '5.2': lesson5_2,
+  '5.3': lesson5_3,
+  '5.4': lesson5_4,
+  '6.1': lesson6_1,
+  '6.2': lesson6_2,
+  '6.3': lesson6_3,
+  '7.1': lesson7_1,
+  '7.2': lesson7_2,
+  '8.1': lesson8_1,
+  '8.2': lesson8_2,
+  '9.1': lesson9_1,
+  '9.2': lesson9_2,
+  '9.3': lesson9_3,
 }
 
 // Flat list of lesson IDs in chronological order based on module sequence
