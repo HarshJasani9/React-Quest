@@ -53,6 +53,7 @@ import lesson11_1 from './modules/11-react-internals/11.1-virtual-dom-precisely.
 import lesson11_2 from './modules/11-react-internals/11.2-fiber-tracks-state.js'
 import lesson11_3 from './modules/11-react-internals/11.3-reconciliation-diffing.js'
 import lesson11_4 from './modules/11-react-internals/11.4-batching-concurrent.js'
+import lesson12_1 from './modules/12-capstone/12.1-recognizing-patterns.js'
 
 // Aggregated modules list in chronological order
 export const modules = [
@@ -107,6 +108,7 @@ export const lessons = {
   '11.2': lesson11_2,
   '11.3': lesson11_3,
   '11.4': lesson11_4,
+  '12.1': lesson12_1,
 }
 
 // Flat list of lesson IDs in chronological order based on module sequence
