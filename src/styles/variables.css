@@ -1,0 +1,161 @@
+/* =====================================================================
+   ReactQuest — CSS Custom Properties (Design Token System)
+   Source of truth: docs/04-Design-System.md Section 3
+   ===================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------
+     COLOR TOKENS
+     Warm paper-and-ink palette. All semantic names from the spec.
+  ------------------------------------------------------------------ */
+
+  /* Core palette */
+  --color-paper:    #FAF7F0;  /* Analogy card background — warm, not stark white */
+  --color-ink:      #1E1B16;  /* Primary text — warm near-black, not pure #000 */
+  --color-slate:    #3D4451;  /* Body text on main (non-card) background */
+  --color-canvas:   #F1EFE9;  /* Main app background — distinct from paper so cards sit above */
+  --color-signal:   #2D6A4F;  /* Single accent — progress, unlocked, success, primary actions */
+  --color-caution:  #9A3B26;  /* Errors, misconception callouts — muted rust, not harsh red */
+
+  /* Derived / utility */
+  --color-signal-subtle:   #D4EDE3;  /* Light tint of signal for backgrounds/badges */
+  --color-caution-subtle:  #F5E0D9;  /* Light tint of caution for error pane backgrounds */
+  --color-border:          #DDD9D0;  /* Subtle borders — slightly darker than canvas */
+  --color-border-strong:   #B8B4AB;  /* Stronger borders, dividers */
+  --color-surface:         #FFFFFF;  /* Pure white — for elevated surfaces when needed */
+  --color-locked:          #C5C2BC;  /* Desaturated text/icons for locked lesson states */
+
+  /* ------------------------------------------------------------------
+     TYPOGRAPHY TOKENS
+     Three-face system: Fraunces (display) / Inter (body) / JetBrains Mono (code)
+  ------------------------------------------------------------------ */
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* Type scale — 1.25 (Major Third) ratio, compressed per spec */
+  --text-xs:   0.640rem;   /*  ~10px — structural labels (ANALOGY, PREVIEW) */
+  --text-sm:   0.800rem;   /*  ~13px — captions, meta */
+  --text-base: 1.000rem;   /*  ~16px — body copy */
+  --text-md:   1.250rem;   /*  ~20px — sub-headings, checkpoint prompts */
+  --text-lg:   1.563rem;   /*  ~25px — lesson section headings */
+  --text-xl:   1.953rem;   /*  ~31px — lesson titles */
+  --text-2xl:  2.441rem;   /*  ~39px — module names, display headings */
+  --text-3xl:  3.052rem;   /*  ~49px — hero / page-level display */
+
+  /* Line heights */
+  --leading-tight:  1.2;
+  --leading-snug:   1.4;
+  --leading-normal: 1.6;
+  --leading-relaxed:1.75;
+
+  /* Font weights */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold:600;
+  --weight-bold:    700;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.05em;
+  --tracking-wider:   0.1em;   /* structural labels — ANALOGY, PREVIEW */
+
+  /* ------------------------------------------------------------------
+     SPACING TOKENS
+     4px base unit
+  ------------------------------------------------------------------ */
+
+  --space-1:   0.25rem;   /*  4px */
+  --space-2:   0.50rem;   /*  8px */
+  --space-3:   0.75rem;  /*  12px */
+  --space-4:   1.00rem;  /*  16px */
+  --space-5:   1.25rem;  /*  20px */
+  --space-6:   1.50rem;  /*  24px */
+  --space-8:   2.00rem;  /*  32px */
+  --space-10:  2.50rem;  /*  40px */
+  --space-12:  3.00rem;  /*  48px */
+  --space-16:  4.00rem;  /*  64px */
+  --space-20:  5.00rem;  /*  80px */
+
+  /* ------------------------------------------------------------------
+     LAYOUT TOKENS
+  ------------------------------------------------------------------ */
+
+  --max-prose-width:   60ch;   /* reading column max width (Design System §3) */
+  --layout-breakpoint-mobile:  768px;
+  --layout-breakpoint-desktop: 1280px;
+
+  /* Two-column split (lesson content | code sandbox) */
+  --layout-content-col: minmax(320px, 1fr);
+  --layout-sandbox-col: minmax(380px, 1.1fr);
+
+  /* ------------------------------------------------------------------
+     BORDER RADIUS
+  ------------------------------------------------------------------ */
+
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+
+  /* ------------------------------------------------------------------
+     SHADOWS
+     Warm-toned shadows matching the paper palette
+  ------------------------------------------------------------------ */
+
+  --shadow-card:    0 2px  8px rgba(30, 27, 22, 0.10),
+                    0 1px  2px rgba(30, 27, 22, 0.06);
+  --shadow-raised:  0 4px 16px rgba(30, 27, 22, 0.12),
+                    0 1px  4px rgba(30, 27, 22, 0.08);
+  --shadow-overlay: 0 8px 32px rgba(30, 27, 22, 0.16),
+                    0 2px  8px rgba(30, 27, 22, 0.10);
+
+  /* ------------------------------------------------------------------
+     ANALOGY CARD SPECIFIC
+  ------------------------------------------------------------------ */
+
+  --analogy-card-bg:         var(--color-paper);
+  --analogy-card-shadow:     var(--shadow-raised);
+  --analogy-card-border:     1px solid var(--color-border);
+  --analogy-card-rotation-a:  1.5deg;   /* odd-ID lessons tilt right */
+  --analogy-card-rotation-b: -1.2deg;   /* even-ID lessons tilt left */
+  --analogy-label-color:     var(--color-slate);
+  --analogy-breakdown-border: 1px dashed var(--color-border-strong);
+
+  /* ------------------------------------------------------------------
+     MOTION TOKENS
+     Only three deliberate animation sites in the whole app (Design System §5)
+  ------------------------------------------------------------------ */
+
+  --duration-instant:  0ms;
+  --duration-fast:   150ms;
+  --duration-normal: 300ms;
+  --duration-slow:   400ms;   /* lesson unlock desaturate-to-color: under 400ms */
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+
+  /* ------------------------------------------------------------------
+     FOCUS / ACCESSIBILITY
+  ------------------------------------------------------------------ */
+
+  --focus-ring-color:  var(--color-signal);
+  --focus-ring-width:  2px;
+  --focus-ring-offset: 3px;
+  --focus-ring: var(--focus-ring-width) solid var(--focus-ring-color);
+}
+
+/* ------------------------------------------------------------------
+   REDUCED MOTION — all three named animations degrade to instant
+   (Design System §5 — prefers-reduced-motion respected globally)
+------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast:   0ms;
+    --duration-normal: 0ms;
+    --duration-slow:   0ms;
+  }
+}
