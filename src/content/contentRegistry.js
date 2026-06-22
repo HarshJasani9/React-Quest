@@ -18,7 +18,20 @@ import module11 from './modules/11-react-internals/index.js'
 import module12 from './modules/12-capstone/index.js'
 
 // Import lesson content files
+import lesson1_1 from './modules/01-foundations/1.1-why-react-exists.js'
+import lesson1_2 from './modules/01-foundations/1.2-jsx-is-not-html.js'
+import lesson1_3 from './modules/01-foundations/1.3-components-are-just-functions.js'
+import lesson1_4 from './modules/01-foundations/1.4-props-passing-data.js'
 import lesson2_1 from './modules/02-state-and-rendering/2.1-state-basics.js'
+import lesson2_2 from './modules/02-state-and-rendering/2.2-render-and-rerender.js'
+import lesson2_3 from './modules/02-state-and-rendering/2.3-events-controlled-inputs.js'
+import lesson2_4 from './modules/02-state-and-rendering/2.4-updater-functions.js'
+import lesson3_1 from './modules/03-lists-keys-conditional/3.1-rendering-lists.js'
+import lesson3_2 from './modules/03-lists-keys-conditional/3.2-keys-why-needed.js'
+import lesson3_3 from './modules/03-lists-keys-conditional/3.3-conditional-rendering.js'
+import lesson4_1 from './modules/04-composition-lifting-state/4.1-children-composition.js'
+import lesson4_2 from './modules/04-composition-lifting-state/4.2-lifting-state-up.js'
+import lesson4_3 from './modules/04-composition-lifting-state/4.3-callback-props.js'
 
 // Aggregated modules list in chronological order
 export const modules = [
@@ -38,7 +51,20 @@ export const modules = [
 
 // Aggregated lessons dictionary
 export const lessons = {
-  '2.1': lesson2_1
+  '1.1': lesson1_1,
+  '1.2': lesson1_2,
+  '1.3': lesson1_3,
+  '1.4': lesson1_4,
+  '2.1': lesson2_1,
+  '2.2': lesson2_2,
+  '2.3': lesson2_3,
+  '2.4': lesson2_4,
+  '3.1': lesson3_1,
+  '3.2': lesson3_2,
+  '3.3': lesson3_3,
+  '4.1': lesson4_1,
+  '4.2': lesson4_2,
+  '4.3': lesson4_3,
 }
 
 // Flat list of lesson IDs in chronological order based on module sequence
