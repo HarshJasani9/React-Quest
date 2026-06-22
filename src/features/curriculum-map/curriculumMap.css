@@ -1,0 +1,300 @@
+/* =====================================================================
+   ReactQuest — Curriculum Map Stylesheet
+   Implements the vertical path timeline, locked/unlocked nodes,
+   and progress dashboard.
+   ===================================================================== */
+
+.curriculum-container {
+  min-height: 100vh;
+  background-color: var(--color-canvas);
+  font-family: var(--font-body);
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.curriculum-inner {
+  width: 100%;
+  max-width: 800px;
+}
+
+/* ------------------------------------------------------------------
+   Progress Dashboard Panel
+   ------------------------------------------------------------------ */
+.progress-dashboard {
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--space-10);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.dashboard-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--color-ink);
+  margin-bottom: var(--space-1);
+}
+
+.dashboard-desc {
+  font-size: var(--text-base);
+  color: var(--color-slate);
+}
+
+.dashboard-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-signal);
+}
+
+.stat-label {
+  font-size: var(--text-xs);
+  color: var(--color-slate);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.reset-button {
+  padding: var(--space-2) var(--space-4);
+  background-color: transparent;
+  border: 1px solid var(--color-caution);
+  color: var(--color-caution);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.reset-button:hover {
+  background-color: var(--color-caution-subtle);
+}
+
+/* ------------------------------------------------------------------
+   Vertical Timeline Path Layout
+   ------------------------------------------------------------------ */
+.curriculum-path {
+  position: relative;
+  padding-left: var(--space-8);
+}
+
+/* Central vertical track line */
+.curriculum-path::before {
+  content: '';
+  position: absolute;
+  left: 19px; /* Centered in the 40px node container */
+  top: var(--space-4);
+  bottom: var(--space-4);
+  width: 2px;
+  background-color: var(--color-border-strong);
+  z-index: 1;
+}
+
+/* Module Container styling */
+.module-group {
+  margin-bottom: var(--space-10);
+  position: relative;
+  z-index: 2;
+}
+
+.module-header {
+  margin-bottom: var(--space-6);
+  padding-left: var(--space-8);
+}
+
+.module-badge {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-signal);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  margin-bottom: var(--space-1);
+  display: block;
+}
+
+.module-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-ink);
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-1);
+}
+
+.module-description {
+  font-size: var(--text-sm);
+  color: var(--color-slate);
+  max-width: var(--max-prose-width);
+}
+
+/* ------------------------------------------------------------------
+   Lesson Node Cards
+   ------------------------------------------------------------------ */
+.lesson-node {
+  display: flex;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+  position: relative;
+}
+
+/* Circle status indicator */
+.node-indicator {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-canvas);
+  border: 2px solid var(--color-border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-slate);
+  position: relative;
+  z-index: 3;
+  transition: all var(--duration-fast) var(--ease-standard);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 4px var(--color-canvas);
+}
+
+.lesson-node.completed .node-indicator {
+  background-color: var(--color-signal);
+  border-color: var(--color-signal);
+  color: #fff;
+}
+
+.lesson-node.unlocked .node-indicator {
+  border-color: var(--color-signal);
+  color: var(--color-signal);
+}
+
+.lesson-node.locked .node-indicator {
+  background-color: var(--color-border);
+  border-color: var(--color-locked);
+  color: var(--color-locked);
+}
+
+/* Node content card */
+.node-card {
+  flex: 1;
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-card);
+  transition: all var(--duration-fast) var(--ease-standard);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.lesson-node.locked .node-card {
+  opacity: 0.65;
+  background-color: rgba(250, 247, 240, 0.5); /* desaturated paper */
+}
+
+.lesson-node.unlocked:not(.completed) .node-card {
+  border-color: var(--color-signal-subtle);
+}
+
+.node-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised);
+}
+
+.lesson-node.locked .node-card:hover {
+  transform: none;
+  box-shadow: var(--shadow-card);
+}
+
+.node-card-left {
+  flex: 1;
+}
+
+.node-lesson-id {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-slate);
+}
+
+.node-lesson-title {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-ink);
+  margin-top: 2px;
+}
+
+.node-lesson-prereqs {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-caution);
+  margin-top: var(--space-2);
+}
+
+.node-lesson-status-badge {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-locked);
+  margin-top: var(--space-1);
+}
+
+/* Action link / button */
+.node-action-btn {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-standard);
+  white-space: nowrap;
+}
+
+.node-action-btn.start {
+  background-color: var(--color-signal);
+  color: #fff;
+}
+
+.node-action-btn.start:hover {
+  opacity: 0.9;
+}
+
+.node-action-btn.review {
+  border: 1px solid var(--color-signal);
+  color: var(--color-signal);
+}
+
+.node-action-btn.review:hover {
+  background-color: var(--color-signal-subtle);
+}
+
+.node-action-btn.unauthored {
+  color: var(--color-locked);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  background-color: var(--color-canvas);
+  border: 1px dashed var(--color-border-strong);
+  cursor: default;
+}

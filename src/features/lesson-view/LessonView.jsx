@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getLessonById, getNextLesson, getPrevLesson, modules } from '../../content/contentRegistry.js'
+import { useProgress } from '../progress/ProgressContext.jsx'
 import AnalogyBlock from './AnalogyBlock.jsx'
 import ExplanationBlock from './ExplanationBlock.jsx'
 import MisconceptionCallout from './MisconceptionCallout.jsx'
@@ -11,6 +12,7 @@ import './lesson-view.css'
 export default function LessonView() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { state, completeLesson, completeChallenge, isUnlocked } = useProgress()
 
   // Retrieve current lesson data
   const lesson = getLessonById(id)
@@ -48,13 +50,91 @@ export default function LessonView() {
     )
   }
 
+  // Enforce prerequisite locks
+  const unlocked = isUnlocked(lesson)
+  if (!unlocked) {
+    return (
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        fontFamily: 'var(--font-body)',
+        backgroundColor: 'var(--color-canvas)',
+        color: 'var(--color-slate)',
+        padding: 'var(--space-6)',
+        textAlign: 'center'
+      }}>
+        <div style={{
+          maxWidth: '450px',
+          background: 'var(--color-paper)',
+          padding: 'var(--space-8)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-raised)',
+          border: '1px solid var(--color-border)'
+        }}>
+          <div style={{ fontSize: '3rem', marginBottom: 'var(--space-4)', color: 'var(--color-locked)' }}>
+            🔒
+          </div>
+          <h1 style={{ fontFamily: 'var(--font-display)', marginBottom: 'var(--space-3)', color: 'var(--color-ink)' }}>
+            Lesson Locked
+          </h1>
+          <p style={{ marginBottom: 'var(--space-6)', fontSize: 'var(--text-base)', lineHeight: 'var(--leading-normal)' }}>
+            This lesson is locked. To unlock it, you must first complete the following prerequisites:
+          </p>
+          <div style={{
+            background: 'var(--color-canvas)',
+            padding: 'var(--space-4)',
+            borderRadius: 'var(--radius-md)',
+            marginBottom: 'var(--space-6)',
+            textAlign: 'left',
+            fontFamily: 'var(--font-mono)',
+            fontSize: 'var(--text-sm)',
+            border: '1px solid var(--color-border)'
+          }}>
+            {lesson.prerequisites.map(prereqId => {
+              const prereqLesson = getLessonById(prereqId)
+              const title = prereqLesson ? prereqLesson.title : `Lesson ${prereqId}`
+              return (
+                <div key={prereqId} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                  <span style={{ color: 'var(--color-caution)' }}>•</span>
+                  <span>{title} ({prereqId})</span>
+                </div>
+              )
+            })}
+          </div>
+          <Link to="/" style={{
+            display: 'inline-block',
+            padding: 'var(--space-2) var(--space-4)',
+            background: 'var(--color-signal)',
+            color: '#fff',
+            textDecoration: 'none',
+            borderRadius: 'var(--radius-sm)',
+            fontWeight: 'var(--weight-semibold)'
+          }}>
+            Back to Curriculum Map
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
   // Find module metadata
   const currentModule = modules.find(m => m.id === lesson.moduleId)
   const nextLesson = getNextLesson(lesson.id)
   const prevLesson = getPrevLesson(lesson.id)
+  const isCompleted = state.completedLessons.has(lesson.id)
 
   // Grab the first checkpoint
   const checkpoint = lesson.checkpoints?.[0]
+
+  const handleComplete = async () => {
+    await completeLesson(lesson.id)
+    if (checkpoint) {
+      await completeChallenge(lesson.id, checkpoint.id)
+    }
+  }
 
   // Render navigation dots representing lessons in the current module
   const renderProgressDots = () => {
@@ -62,35 +142,42 @@ export default function LessonView() {
 
     return currentModule.lessonIds.map(lessonId => {
       const isCurrent = lessonId === lesson.id
-      const isAvailable = getLessonById(lessonId) !== null
-
-      // Mock completion status for Phase 2:
-      // In a real app we read this from ProgressContext.
-      // For now, treat lessons before the current one in ID as completed.
-      const currentNum = parseFloat(lesson.id)
-      const dotNum = parseFloat(lessonId)
-      const isCompleted = dotNum < currentNum
+      const dotLesson = getLessonById(lessonId)
+      const isAvailable = dotLesson !== null
+      const isDotUnlocked = dotLesson ? isUnlocked(dotLesson) : false
+      const isDotCompleted = state.completedLessons.has(lessonId)
 
       let dotClass = 'progress-dot'
       if (isCurrent) {
         dotClass += ' active'
-      } else if (isCompleted) {
+      } else if (isDotCompleted) {
         dotClass += ' completed'
       }
+
+      const titleText = isCurrent
+        ? 'Current Lesson'
+        : !isAvailable
+          ? `Lesson ${lessonId} (Unauthored)`
+          : !isDotUnlocked
+            ? `Lesson ${lessonId} (Locked)`
+            : `Go to Lesson ${lessonId} ${isDotCompleted ? '(Completed)' : ''}`
+
+      const clickable = isAvailable && isDotUnlocked && !isCurrent
 
       return (
         <span
           key={lessonId}
           className={dotClass}
-          title={isCurrent ? 'Current lesson' : isAvailable ? `Go to Lesson ${lessonId}` : `Lesson ${lessonId} (locked)`}
+          title={titleText}
           onClick={() => {
-            if (isAvailable && !isCurrent) {
+            if (clickable) {
               navigate(`/lesson/${lessonId}`)
             }
           }}
           style={{
-            cursor: isAvailable && !isCurrent ? 'pointer' : 'default',
-            opacity: isAvailable || isCurrent ? 1 : 0.4
+            cursor: clickable ? 'pointer' : 'default',
+            opacity: isCurrent || (isAvailable && isDotUnlocked) ? 1 : 0.35,
+            borderStyle: isAvailable ? 'solid' : 'dotted'
           }}
         />
       )
@@ -198,13 +285,15 @@ export default function LessonView() {
                     color: '#fff',
                     borderRadius: 'var(--radius-sm)',
                     fontFamily: 'var(--font-body)',
-                    fontWeight: 'var(--weight-semibold)'
+                    fontWeight: 'var(--weight-semibold)',
+                    border: 'none',
+                    cursor: 'pointer'
                   }}
                 >
                   Next Lesson →
                 </button>
               ) : (
-                <span style={{ color: 'var(--color-locked)', fontSize: 'var(--text-sm)' }}>
+                <span style={{ color: 'var(--color-locked)', fontSize: 'var(--text-sm)', fontFamily: 'var(--font-mono)' }}>
                   End of Module
                 </span>
               )}
@@ -226,6 +315,42 @@ export default function LessonView() {
 
               <div className="checkpoint-sandbox-wrapper">
                 <CodeSandbox starterCode={checkpoint.starterCode} />
+              </div>
+
+              {/* Mark Complete Action Button */}
+              <div style={{
+                marginTop: 'var(--space-4)',
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                gap: 'var(--space-4)'
+              }}>
+                {isCompleted && (
+                  <span style={{
+                    fontSize: 'var(--text-sm)',
+                    color: 'var(--color-signal)',
+                    fontFamily: 'var(--font-mono)',
+                    fontWeight: 'var(--weight-semibold)'
+                  }}>
+                    ✓ Completed!
+                  </span>
+                )}
+                <button
+                  onClick={handleComplete}
+                  style={{
+                    padding: 'var(--space-2) var(--space-6)',
+                    background: isCompleted ? 'var(--color-signal)' : 'var(--color-ink)',
+                    color: '#fff',
+                    borderRadius: 'var(--radius-sm)',
+                    fontFamily: 'var(--font-body)',
+                    fontWeight: 'var(--weight-semibold)',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all var(--duration-fast) var(--ease-standard)'
+                  }}
+                >
+                  {isCompleted ? 'Completed (Update)' : 'Complete Checkpoint & Unlock Next'}
+                </button>
               </div>
             </div>
           ) : (
