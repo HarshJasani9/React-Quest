@@ -7,6 +7,9 @@ import ExplanationBlock from './ExplanationBlock.jsx'
 import MisconceptionCallout from './MisconceptionCallout.jsx'
 import CodeSandbox from '../code-sandbox/CodeSandbox.jsx'
 import ReactMarkdown from 'react-markdown'
+import FiberTreeVisualization from '../internals-visualizations/FiberTreeVisualization.jsx'
+import ReconciliationDiffVisualization from '../internals-visualizations/ReconciliationDiffVisualization.jsx'
+import ConcurrentRenderingVisualization from '../internals-visualizations/ConcurrentRenderingVisualization.jsx'
 import './lesson-view.css'
 
 export default function LessonView() {
@@ -314,8 +317,20 @@ export default function LessonView() {
               </div>
 
               <div className="checkpoint-sandbox-wrapper">
-                <CodeSandbox starterCode={checkpoint.starterCode} height={lesson.sandboxHeight} />
+                {lesson.id === '11.2' ? (
+                  <FiberTreeVisualization />
+                ) : (
+                  <CodeSandbox 
+                    starterCode={checkpoint.starterCode} 
+                    height={lesson.sandboxHeight} 
+                    inspectVirtualDom={lesson.id === '11.1'} 
+                  />
+                )}
               </div>
+
+              {/* Supporting diagrams for Reconciliation (11.3) and Concurrent rendering (11.4) */}
+              {lesson.id === '11.3' && <ReconciliationDiffVisualization />}
+              {lesson.id === '11.4' && <ConcurrentRenderingVisualization />}
 
               {/* Mark Complete Action Button */}
               <div style={{

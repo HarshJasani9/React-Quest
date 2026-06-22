@@ -3,8 +3,9 @@ import CodeMirror from '@uiw/react-codemirror'
 import { javascript } from '@codemirror/lang-javascript'
 import { useBabelTransform } from './useBabelTransform.js'
 import SandboxPreviewRoot from './SandboxPreviewRoot.jsx'
+import VirtualDomInspector from '../internals-visualizations/VirtualDomInspector.jsx'
 
-export default function CodeSandbox({ starterCode, height = '400px' }) {
+export default function CodeSandbox({ starterCode, height = '400px', inspectVirtualDom = false }) {
   const [code, setCode] = useState(starterCode || '')
   
   // Transform the raw string input
@@ -106,6 +107,8 @@ export default function CodeSandbox({ starterCode, height = '400px' }) {
                 {transformError.message}
               </pre>
             </div>
+          ) : inspectVirtualDom ? (
+            <VirtualDomInspector transformedCode={transformedCode} />
           ) : (
             <SandboxPreviewRoot transformedCode={transformedCode} />
           )}

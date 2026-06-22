@@ -49,6 +49,10 @@ import lesson9_3 from './modules/09-performance/9.3-usememo-usecallback.js'
 import lesson10_1 from './modules/10-advanced-patterns/10.1-usereducer-state-transitions.js'
 import lesson10_2 from './modules/10-advanced-patterns/10.2-compound-components.js'
 import lesson10_3 from './modules/10-advanced-patterns/10.3-render-props.js'
+import lesson11_1 from './modules/11-react-internals/11.1-virtual-dom-precisely.js'
+import lesson11_2 from './modules/11-react-internals/11.2-fiber-tracks-state.js'
+import lesson11_3 from './modules/11-react-internals/11.3-reconciliation-diffing.js'
+import lesson11_4 from './modules/11-react-internals/11.4-batching-concurrent.js'
 
 // Aggregated modules list in chronological order
 export const modules = [
@@ -99,6 +103,10 @@ export const lessons = {
   '10.1': lesson10_1,
   '10.2': lesson10_2,
   '10.3': lesson10_3,
+  '11.1': lesson11_1,
+  '11.2': lesson11_2,
+  '11.3': lesson11_3,
+  '11.4': lesson11_4,
 }
 
 // Flat list of lesson IDs in chronological order based on module sequence
