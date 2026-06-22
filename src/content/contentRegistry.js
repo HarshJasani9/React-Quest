@@ -46,6 +46,9 @@ import lesson8_2 from './modules/08-custom-hooks/8.2-rules-of-hooks.js'
 import lesson9_1 from './modules/09-performance/9.1-optimization-need.js'
 import lesson9_2 from './modules/09-performance/9.2-react-memo.js'
 import lesson9_3 from './modules/09-performance/9.3-usememo-usecallback.js'
+import lesson10_1 from './modules/10-advanced-patterns/10.1-usereducer-state-transitions.js'
+import lesson10_2 from './modules/10-advanced-patterns/10.2-compound-components.js'
+import lesson10_3 from './modules/10-advanced-patterns/10.3-render-props.js'
 
 // Aggregated modules list in chronological order
 export const modules = [
@@ -93,6 +96,9 @@ export const lessons = {
   '9.1': lesson9_1,
   '9.2': lesson9_2,
   '9.3': lesson9_3,
+  '10.1': lesson10_1,
+  '10.2': lesson10_2,
+  '10.3': lesson10_3,
 }
 
 // Flat list of lesson IDs in chronological order based on module sequence

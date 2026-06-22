@@ -314,7 +314,7 @@ export default function LessonView() {
               </div>
 
               <div className="checkpoint-sandbox-wrapper">
-                <CodeSandbox starterCode={checkpoint.starterCode} />
+                <CodeSandbox starterCode={checkpoint.starterCode} height={lesson.sandboxHeight} />
               </div>
 
               {/* Mark Complete Action Button */}

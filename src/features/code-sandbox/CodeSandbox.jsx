@@ -4,7 +4,7 @@ import { javascript } from '@codemirror/lang-javascript'
 import { useBabelTransform } from './useBabelTransform.js'
 import SandboxPreviewRoot from './SandboxPreviewRoot.jsx'
 
-export default function CodeSandbox({ starterCode }) {
+export default function CodeSandbox({ starterCode, height = '400px' }) {
   const [code, setCode] = useState(starterCode || '')
   
   // Transform the raw string input
@@ -19,7 +19,7 @@ export default function CodeSandbox({ starterCode }) {
       display: 'grid',
       gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
       gap: 'var(--space-4)',
-      height: '400px',
+      height: height,
       border: '1px solid var(--color-border)',
       borderRadius: 'var(--radius-md)',
       overflow: 'hidden'
