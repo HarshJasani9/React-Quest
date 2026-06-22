@@ -4,7 +4,6 @@ import React from 'react'
  * SandboxErrorBoundary — Phase 1
  * Catches runtime errors thrown inside the sandbox preview root.
  * Displays them inline; never bubbles to crash the lesson page.
- * Design System §4: errors on caution-tinted background, plain language first.
  */
 export default class SandboxErrorBoundary extends React.Component {
   constructor(props) {
@@ -16,12 +15,30 @@ export default class SandboxErrorBoundary extends React.Component {
     return { hasError: true, error }
   }
 
+  componentDidCatch(error, errorInfo) {
+    console.error('Sandbox execution error:', error, errorInfo)
+  }
+
   render() {
     if (this.state.hasError) {
       return (
-        <div role="alert" aria-live="assertive">
-          {/* TODO Phase 1: render caution-styled error display */}
-          <p>This code threw an error while running.</p>
+        <div style={{
+          padding: 'var(--space-4)',
+          background: 'var(--color-caution-subtle)',
+          color: 'var(--color-caution)',
+          borderRadius: 'var(--radius-sm)',
+          border: '1px solid var(--color-caution)'
+        }}>
+          <p style={{ fontWeight: 'var(--weight-bold)', marginBottom: 'var(--space-2)' }}>
+            Runtime Error:
+          </p>
+          <pre style={{ 
+            fontFamily: 'var(--font-mono)', 
+            fontSize: 'var(--text-sm)',
+            whiteSpace: 'pre-wrap'
+          }}>
+            {this.state.error.toString()}
+          </pre>
         </div>
       )
     }

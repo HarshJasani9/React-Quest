@@ -1,0 +1,359 @@
+/* =====================================================================
+   ReactQuest — Lesson View Stylesheet
+   Implements the two-column responsive layout, Analogy Cards,
+   Misconception Callouts, and structural labels.
+   ===================================================================== */
+
+/* ------------------------------------------------------------------
+   Header / Top Navigation Bar
+   ------------------------------------------------------------------ */
+.lesson-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) var(--space-6);
+  background-color: var(--color-canvas);
+  border-bottom: 1px solid var(--color-border);
+  height: 60px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.back-link {
+  font-family: var(--font-body);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-sm);
+  color: var(--color-slate);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.back-link:hover {
+  color: var(--color-signal);
+}
+
+.lesson-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-slate);
+}
+
+.lesson-title-display {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+  font-weight: var(--weight-bold);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.progress-dots {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border-strong);
+  background-color: transparent;
+  transition: all var(--duration-fast) var(--ease-standard);
+  position: relative;
+  cursor: pointer;
+}
+
+.progress-dot.completed {
+  background-color: var(--color-signal);
+  border-color: var(--color-signal);
+}
+
+.progress-dot.active {
+  background-color: transparent;
+  border-color: var(--color-signal);
+  box-shadow: 0 0 0 2px var(--color-signal-subtle);
+}
+
+.progress-dot.active-filled {
+  background-color: var(--color-signal);
+  border-color: var(--color-signal);
+  box-shadow: 0 0 0 2px var(--color-signal-subtle);
+}
+
+/* ------------------------------------------------------------------
+   Layout Structure
+   ------------------------------------------------------------------ */
+.lesson-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  flex: 1;
+  min-height: calc(100vh - 60px);
+}
+
+@media (min-width: 768px) {
+  .lesson-layout {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+.lesson-content-column {
+  padding: var(--space-8) var(--space-10);
+  overflow-y: auto;
+  max-width: 100%;
+}
+
+.prose-container {
+  max-width: var(--max-prose-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.lesson-sandbox-column {
+  background-color: var(--color-canvas);
+  border-left: 1px solid var(--color-border);
+  padding: var(--space-8) var(--space-6);
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .lesson-sandbox-column {
+    position: sticky;
+    top: 60px;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Typography & Sections
+   ------------------------------------------------------------------ */
+.core-question-section {
+  border-left: 3px solid var(--color-signal);
+  padding-left: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.core-question-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-signal);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-1);
+}
+
+.core-question-text {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-ink);
+  line-height: var(--leading-tight);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-slate);
+  text-transform: uppercase;
+  font-weight: var(--weight-semibold);
+  margin-bottom: var(--space-2);
+}
+
+.before-problem-box {
+  background-color: var(--color-canvas);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+.before-problem-box p {
+  font-style: italic;
+  color: var(--color-slate);
+}
+
+/* ------------------------------------------------------------------
+   Analogy Card (Signature Element)
+   ------------------------------------------------------------------ */
+.analogy-card-container {
+  perspective: 1000px;
+  margin: var(--space-8) 0;
+  display: flex;
+  justify-content: center;
+}
+
+.analogy-card {
+  background-color: var(--analogy-card-bg);
+  border: var(--analogy-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-8);
+  box-shadow: var(--analogy-card-shadow);
+  width: 100%;
+  max-width: var(--max-prose-width);
+  position: relative;
+  transform: rotate(var(--rotate-angle, 0deg));
+  transition: transform var(--duration-normal) var(--ease-standard);
+}
+
+.analogy-card:hover {
+  transform: rotate(0deg) scale(1.01);
+}
+
+.analogy-badge {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  color: var(--analogy-label-color);
+  opacity: 0.65;
+  font-weight: var(--weight-bold);
+}
+
+.analogy-body {
+  color: var(--color-ink);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  margin-top: var(--space-4);
+}
+
+.analogy-body p {
+  color: var(--color-ink);
+}
+
+.analogy-breakdown {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: var(--analogy-breakdown-border);
+}
+
+.analogy-breakdown-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-caution);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-2);
+}
+
+.analogy-breakdown-text {
+  font-size: 0.95rem;
+  line-height: var(--leading-relaxed);
+  color: var(--color-slate);
+}
+
+/* ------------------------------------------------------------------
+   Explanation Block (What / How / When)
+   ------------------------------------------------------------------ */
+.explanation-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin: var(--space-8) 0;
+}
+
+.explanation-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.explanation-section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+  font-weight: var(--weight-bold);
+}
+
+.explanation-section-body {
+  color: var(--color-slate);
+  line-height: var(--leading-relaxed);
+}
+
+/* ------------------------------------------------------------------
+   Misconception Callout
+   ------------------------------------------------------------------ */
+.misconception-callout {
+  border-left: 4px solid var(--color-caution);
+  padding: var(--space-4) var(--space-6);
+  background-color: transparent;
+  margin: var(--space-8) 0;
+}
+
+.misconception-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-caution);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-3);
+}
+
+.misconception-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.misconception-claim {
+  font-weight: var(--weight-medium);
+  color: var(--color-ink);
+}
+
+.misconception-reality {
+  color: var(--color-slate);
+  line-height: var(--leading-relaxed);
+}
+
+/* ------------------------------------------------------------------
+   Checkpoint Pane
+   ------------------------------------------------------------------ */
+.checkpoint-pane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: 100%;
+}
+
+.checkpoint-header {
+  margin-bottom: var(--space-2);
+}
+
+.checkpoint-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-ink);
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-1);
+}
+
+.checkpoint-prompt {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-slate);
+  line-height: var(--leading-normal);
+  max-width: 100%;
+}
+
+.checkpoint-sandbox-wrapper {
+  flex: 1;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+}
