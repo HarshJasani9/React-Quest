@@ -110,16 +110,20 @@ export default function SandboxPreviewRoot({ transformedCode }) {
       )}
 
       {execError ? (
-        <div style={{
-          padding: 'var(--space-4)',
-          background: 'var(--color-caution-subtle)',
-          color: 'var(--color-caution)',
-          borderRadius: 'var(--radius-sm)',
-          border: '1px solid var(--color-caution)',
-          margin: 'var(--space-4)'
-        }}>
+        <div 
+          role="alert" 
+          aria-live="assertive" 
+          style={{
+            padding: 'var(--space-4)',
+            background: 'var(--color-caution-subtle)',
+            color: 'var(--color-caution)',
+            borderRadius: 'var(--radius-sm)',
+            border: '1px solid var(--color-caution)',
+            margin: 'var(--space-4)'
+          }}
+        >
           <p style={{ fontWeight: 'var(--weight-bold)', marginBottom: 'var(--space-2)' }}>
-            Execution Error:
+            This code threw an error while running:
           </p>
           <pre style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-sm)', whiteSpace: 'pre-wrap' }}>
             {execError.toString()}

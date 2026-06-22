@@ -1,0 +1,47 @@
+/* =====================================================================
+   ReactQuest — Code Sandbox Layout Stylesheet
+   Supports responsive layouts (stacking on mobile viewports).
+   ===================================================================== */
+
+.sandbox-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.sandbox-editor-pane {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-right: 1px solid var(--color-border);
+  min-height: 300px;
+}
+
+.sandbox-preview-pane {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  min-height: 250px;
+}
+
+/* Responsive / Mobile pass stacking */
+@media (max-width: 768px) {
+  .sandbox-container {
+    grid-template-columns: 1fr;
+    height: auto !important; /* Stack vertically instead of force-scaling height */
+  }
+
+  .sandbox-editor-pane {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    height: 350px !important; /* Fixed height for editor on mobile */
+  }
+
+  .sandbox-preview-pane {
+    height: 300px !important; /* Fixed height for preview on mobile */
+  }
+}

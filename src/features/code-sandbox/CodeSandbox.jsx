@@ -4,6 +4,7 @@ import { javascript } from '@codemirror/lang-javascript'
 import { useBabelTransform } from './useBabelTransform.js'
 import SandboxPreviewRoot from './SandboxPreviewRoot.jsx'
 import VirtualDomInspector from '../internals-visualizations/VirtualDomInspector.jsx'
+import './codeSandbox.css'
 
 export default function CodeSandbox({ starterCode, height = '400px', inspectVirtualDom = false }) {
   const [code, setCode] = useState(starterCode || '')
@@ -16,17 +17,9 @@ export default function CodeSandbox({ starterCode, height = '400px', inspectVirt
   }
 
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
-      gap: 'var(--space-4)',
-      height: height,
-      border: '1px solid var(--color-border)',
-      borderRadius: 'var(--radius-md)',
-      overflow: 'hidden'
-    }}>
+    <div className="sandbox-container" style={{ height: height }}>
       {/* Editor Pane */}
-      <div style={{ display: 'flex', flexDirection: 'column', borderRight: '1px solid var(--color-border)' }}>
+      <div className="sandbox-editor-pane">
         <div style={{
           padding: 'var(--space-2) var(--space-4)',
           background: 'var(--color-canvas)',
@@ -74,7 +67,7 @@ export default function CodeSandbox({ starterCode, height = '400px', inspectVirt
       </div>
 
       {/* Preview Pane */}
-      <div style={{ display: 'flex', flexDirection: 'column', background: '#fff' }}>
+      <div className="sandbox-preview-pane">
         <div style={{
           padding: 'var(--space-2) var(--space-4)',
           background: 'var(--color-canvas)',
@@ -92,16 +85,20 @@ export default function CodeSandbox({ starterCode, height = '400px', inspectVirt
         
         <div style={{ flex: 1, overflow: 'auto' }}>
           {transformError ? (
-             <div style={{
-              padding: 'var(--space-4)',
-              background: 'var(--color-caution-subtle)',
-              color: 'var(--color-caution)',
-              margin: 'var(--space-4)',
-              borderRadius: 'var(--radius-sm)',
-              border: '1px solid var(--color-caution)'
-            }}>
+             <div 
+              role="alert" 
+              aria-live="assertive" 
+              style={{
+                padding: 'var(--space-4)',
+                background: 'var(--color-caution-subtle)',
+                color: 'var(--color-caution)',
+                margin: 'var(--space-4)',
+                borderRadius: 'var(--radius-sm)',
+                border: '1px solid var(--color-caution)'
+              }}
+            >
               <p style={{ fontWeight: 'var(--weight-bold)', marginBottom: 'var(--space-2)' }}>
-                Syntax Error:
+                This code threw an error while running:
               </p>
               <pre style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-sm)', whiteSpace: 'pre-wrap' }}>
                 {transformError.message}

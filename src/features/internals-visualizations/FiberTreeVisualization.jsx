@@ -253,50 +253,117 @@ export default function FiberTreeVisualization() {
                 strokeColor = 'var(--color-caution)'
               }
 
+              // Alternate (WIP) node status styling
+              let altStroke = 'var(--color-border-strong)'
+              let altFill = '#fff'
+              let altLabel = 'wip alt'
+              if (status === 'updating' || status === 'inspecting') {
+                altFill = 'var(--color-signal-subtle)'
+                altStroke = 'var(--color-signal)'
+                altLabel = 'WIP'
+              } else if (status === 'recreating') {
+                altFill = 'var(--color-caution-subtle)'
+                altStroke = 'var(--color-caution)'
+                altLabel = 'WIP: new'
+              } else if (status === 'reused') {
+                altFill = '#e6f4ea'
+                altStroke = 'var(--color-signal)'
+                altLabel = 'reused'
+              } else if (status === 'recreated') {
+                altFill = '#fce8e6'
+                altStroke = 'var(--color-caution)'
+                altLabel = 'recreated'
+              } else if (status === 'updated') {
+                altFill = '#fef7e0'
+                altStroke = 'var(--color-caution)'
+                altLabel = 'updated'
+              }
+
               return (
-                <g 
-                  key={nodeId} 
-                  transform={`translate(${coords.x}, ${coords.y})`} 
-                  onClick={() => setSelectedNode(nodeId)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <rect
-                    x="-65"
-                    y="-20"
-                    width="130"
-                    height="40"
-                    rx="5"
-                    fill={fillColor}
-                    stroke={strokeColor}
-                    strokeWidth={selectedNode === nodeId ? 2.5 : 1.5}
-                    style={{ transition: 'all 0.3s ease' }}
+                <g key={nodeId}>
+                  {/* Alternate Pointer Line */}
+                  <line
+                    x1={coords.x}
+                    y1={coords.y}
+                    x2={coords.x + 35}
+                    y2={coords.y + 25}
+                    stroke="var(--color-border-strong)"
+                    strokeWidth="1.5"
+                    strokeDasharray="2"
                   />
-                  <text
-                    textAnchor="middle"
-                    alignmentBaseline="middle"
-                    y="2"
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: 'var(--text-xs)',
-                      fontWeight: selectedNode === nodeId ? 'bold' : 'normal',
-                      fill: 'var(--color-ink)'
-                    }}
-                  >
-                    {node.name}
-                  </text>
-                  {/* Status Badge */}
-                  {status !== 'idle' && (
-                    <circle
-                      cx="55"
-                      cy="-15"
-                      r="7"
-                      fill={
-                        status === 'reused' ? '#137333' : 
-                        status === 'recreated' ? '#c5221f' : 
-                        status === 'updated' ? '#b06000' : 'var(--color-signal)'
-                      }
+                  
+                  {/* Alternate (WIP) Fiber Node Card */}
+                  <g transform={`translate(${coords.x + 35}, ${coords.y + 25})`}>
+                    <rect
+                      x="-30"
+                      y="-10"
+                      width="60"
+                      height="20"
+                      rx="3"
+                      fill={altFill}
+                      stroke={altStroke}
+                      strokeWidth="1"
+                      strokeDasharray="2"
                     />
-                  )}
+                    <text
+                      textAnchor="middle"
+                      alignmentBaseline="middle"
+                      y="1"
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '7px',
+                        fill: 'var(--color-slate)',
+                        fontWeight: '500'
+                      }}
+                    >
+                      {altLabel}
+                    </text>
+                  </g>
+
+                  {/* Current Fiber Node Card */}
+                  <g 
+                    transform={`translate(${coords.x}, ${coords.y})`} 
+                    onClick={() => setSelectedNode(nodeId)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <rect
+                      x="-65"
+                      y="-20"
+                      width="130"
+                      height="40"
+                      rx="5"
+                      fill={fillColor}
+                      stroke={strokeColor}
+                      strokeWidth={selectedNode === nodeId ? 2.5 : 1.5}
+                      style={{ transition: 'all 0.3s ease' }}
+                    />
+                    <text
+                      textAnchor="middle"
+                      alignmentBaseline="middle"
+                      y="2"
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: 'var(--text-xs)',
+                        fontWeight: selectedNode === nodeId ? 'bold' : 'normal',
+                        fill: 'var(--color-ink)'
+                      }}
+                    >
+                      {node.name}
+                    </text>
+                    {/* Status Badge */}
+                    {status !== 'idle' && (
+                      <circle
+                        cx="55"
+                        cy="-15"
+                        r="7"
+                        fill={
+                          status === 'reused' ? '#137333' : 
+                          status === 'recreated' ? '#c5221f' : 
+                          status === 'updated' ? '#b06000' : 'var(--color-signal)'
+                        }
+                      />
+                    )}
+                  </g>
                 </g>
               )
             })}

@@ -5,7 +5,7 @@ export default {
   prerequisites: ["6.1"],
   estimatedMinutes: 15,
 
-  coreQuestion: "How can a deeply nested component read a value without every component in between passing it explicitly?",
+  coreQuestion: "How do you pass data down a deep tree without mentioning it in every intermediate component?",
 
   beforeProblem: `see 6.1.`,
 
