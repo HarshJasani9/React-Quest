@@ -111,6 +111,8 @@
   12. Fixed mobile viewport layout bugs: reduced text spacing and button padding, configured lesson titles to truncate cleanly without breaking the header grid, turned off card rotations to stop horizontal clipping, and refactored footer navigation to use a stacked full-width layout (`.lesson-footer-nav`) on screens smaller than 520px.
   13. Performed additional mobile UI polish: optimized the **Curriculum Map** timeline nodes and progress dashboard to stack vertically on narrow devices (preventing title-button overlap), refactored the **CodeSandbox Header** (extracting style rules to [codeSandbox.css](file:///h:/ALL_Projects/ReactLearner/src/features/code-sandbox/codeSandbox.css) and scaling down buttons to prevent overflow), and refactored the **Reconciliation Diff Visualizer** columns to stack vertically on small mobile viewports.
   14. Created the GitHub Actions CI build workflow inside [.github/workflows/ci.yml](file:///h:/ALL_Projects/ReactLearner/.github/workflows/ci.yml) to validate pushed commits and pull requests, installing dependencies with `npm ci`, caching npm dependencies, compiling the React+Vite bundle, and uploading the `dist/` directory as an artifact.
+  15. Modified the CI build workflow to check for the existence of a `lint` script in `package.json` dynamically using `jq` and, if found, run `npm run lint` prior to the production build stage.
+
 
 
 
