@@ -38,6 +38,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+
+      # Step 3.5: Run linting (conditional)
+      # Checks if a lint script is defined in package.json using jq.
+      # If it exists, runs 'npm run lint'. Otherwise, logs a message and skips.
+      - name: Run lint script (if defined)
+        run: |
+          if jq -e '.scripts.lint' package.json >/dev/null; then
+            echo "Lint script found. Running 'npm run lint'..."
+            npm run lint
+          else
+            echo "No 'lint' script found in package.json. Skipping linting step."
+          fi
+
       # Step 4: Build the application for production
       # Compiles JSX and assets into the output directory 'dist/' using Vite
       - name: Build project
