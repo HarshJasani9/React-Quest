@@ -79,7 +79,7 @@ jobs:
       # Configures buildx, which is a Docker CLI plugin that enables multi-stage builds,
       # build caching, and parallel build capabilities in GitHub Actions
       - name: Set up Docker Buildx
-        uses: actions/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v3
 
       # Step 3: Compile and verify all Docker Compose images
       # Runs 'docker compose build' to trigger compilation for both the 'frontend' and 'validator'
