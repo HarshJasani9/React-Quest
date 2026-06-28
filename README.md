@@ -122,6 +122,35 @@ node scratch/validate_curriculum.js
 
 ---
 
+## 🐳 Containerization & CI/CD
+
+ReactQuest supports local containerized development and automated integration tests:
+
+### Docker Development Environment
+Start the application locally using Docker Compose. Hot Module Replacement (HMR) is pre-configured to work reliably over host-to-container mounts (polling file-watching is active for Windows host compatibility).
+
+1. **Start all services** (boots the React frontend on `http://localhost:5173` and the mock stub backend API on `http://localhost:8080`):
+   ```bash
+   docker compose up
+   ```
+2. **Rebuild container images**:
+   ```bash
+   docker compose build
+   ```
+3. **Run developer tools**:
+   To programmatically check curriculum prerequisite paths inside a container on demand, execute the validator service:
+   ```bash
+   docker compose --profile tools run validator
+   ```
+
+### GitHub Actions CI
+Every commit push and pull request triggers the automated [CI/CD Build Workflow](file:///.github/workflows/ci.yml) which performs:
+1. **Node Build Validation**: Runs dependency installation (`npm ci`), checks for the presence of a lint script, compiles the production bundle (`npm run build`), and saves the output directory as a workflow artifact.
+2. **Docker Build Verification**: Runs `docker compose build` inside a hosted runner to ensure all configuration and image files build successfully.
+
+---
+
+
 ## 📝 Design Tokens & Theme
 
 The app implements a custom warm theme styled inside [variables.css](file:///h:/ALL_Projects/ReactLearner/src/styles/variables.css). Semantic highlights:
