@@ -17,6 +17,19 @@ export default function LessonView() {
   const navigate = useNavigate()
   const { state, completeLesson, completeChallenge, isUnlocked } = useProgress()
 
+  const contentColumnRef = React.useRef(null)
+  const sandboxColumnRef = React.useRef(null)
+
+  React.useEffect(() => {
+    if (contentColumnRef.current) {
+      contentColumnRef.current.scrollTo(0, 0)
+    }
+    if (sandboxColumnRef.current) {
+      sandboxColumnRef.current.scrollTo(0, 0)
+    }
+    window.scrollTo(0, 0)
+  }, [id])
+
   // Retrieve current lesson data
   const lesson = getLessonById(id)
 
@@ -212,7 +225,7 @@ export default function LessonView() {
       {/* Main Two-Column Layout */}
       <main className="lesson-layout">
         {/* Left Column: Prose & Markdown explanations */}
-        <section className="lesson-content-column">
+        <section ref={contentColumnRef} className="lesson-content-column">
           <div className="prose-container">
             {/* Core Question Box */}
             <div className="core-question-section">
@@ -305,7 +318,7 @@ export default function LessonView() {
         </section>
 
         {/* Right Column: Code Sandbox */}
-        <section className="lesson-sandbox-column">
+        <section ref={sandboxColumnRef} className="lesson-sandbox-column">
           {checkpoint ? (
             <div className="checkpoint-pane">
               <div className="checkpoint-header">
