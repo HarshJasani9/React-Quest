@@ -1,4 +1,5 @@
-version: '3.8'
+# Note: Omit the 'version' field to leverage the modern Docker Compose Specification,
+# which fully supports long-form depends_on health check conditions.
 
 services:
   # =====================================================================
@@ -35,8 +36,8 @@ services:
   backend:
     image: alpine:latest
     command: >
-      sh -c "echo 'ReactQuest Mock Backend listening on port $PORT...' && 
-             while true; do nc -lk -p $PORT -e echo -e 'HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nConnection: close\r\n\r\n{\"status\":\"mock-api\",\"msg\":\"Hello from Docker composition!\"}'; done"
+      sh -c "echo 'ReactQuest Mock Backend listening on port $$PORT...' && 
+             while true; do nc -lk -p $$PORT -e echo -e 'HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nConnection: close\r\n\r\n{\"status\":\"mock-api\",\"msg\":\"Hello from Docker composition!\"}'; done"
     ports:
       - "${PORT:-8080}:${PORT:-8080}"
     environment:
