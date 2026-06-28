@@ -65,3 +65,26 @@ jobs:
           name: reactquest-build
           path: dist/
           retention-days: 7
+
+  docker-build:
+    name: Build & Verify Docker Images
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the codebase
+      # This pulls the repository files into the runner workspace so it can access Dockerfiles
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Docker Buildx
+      # Configures buildx, which is a Docker CLI plugin that enables multi-stage builds,
+      # build caching, and parallel build capabilities in GitHub Actions
+      - name: Set up Docker Buildx
+        uses: actions/setup-buildx-action@v3
+
+      # Step 3: Compile and verify all Docker Compose images
+      # Runs 'docker compose build' to trigger compilation for both the 'frontend' and 'validator'
+      # containers. If any error is encountered (such as syntax errors or copy target mismatches),
+      # the command exits with a non-zero code, failing the CI run.
+      - name: Build Docker Compose images
+        run: docker compose build
+
