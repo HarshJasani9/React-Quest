@@ -102,6 +102,8 @@
   3. Updated `index.html` to reference the new `/favicon.svg` favicon.
   4. Verified that the production build completes successfully (`npm run build`).
   5. Implemented a Fullscreen (Zen) Mode toggle for the `CodeSandbox` editor to allow learners to expand their coding workspace to a full-viewport layout with split editor and preview, including body scroll locking and Escape key navigation.
+  6. Resolved the layout scroll preservation bug by implementing systematic scroll-to-top restoration on lesson transitions for both individual column scroll containers and the global window.
+
 
 
 
