@@ -1,0 +1,14 @@
+# Ignore local node modules
+node_modules
+
+# Ignore local build output folder
+dist
+
+# Ignore version control systems and CI configs
+.git
+.github
+.gitignore
+
+# Ignore Docker configuration files
+Dockerfile
+.dockerignore
