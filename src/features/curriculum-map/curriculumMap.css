@@ -298,3 +298,49 @@
   border: 1px dashed var(--color-border-strong);
   cursor: default;
 }
+
+/* =====================================================================
+   Mobile Responsiveness Overrides
+   ===================================================================== */
+@media (max-width: 600px) {
+  .curriculum-container {
+    padding: var(--space-4) var(--space-3) !important;
+  }
+
+  .progress-dashboard {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: var(--space-4) !important;
+    margin-bottom: var(--space-6) !important;
+    text-align: center;
+  }
+
+  .dashboard-stats {
+    width: 100% !important;
+    justify-content: space-around !important;
+    margin-top: var(--space-4) !important;
+  }
+
+  .reset-button {
+    flex: 1 !important;
+    text-align: center !important;
+  }
+
+  .curriculum-path {
+    padding-left: var(--space-6) !important;
+  }
+
+  .node-card {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: var(--space-3) !important;
+    padding: var(--space-3) var(--space-4) !important;
+  }
+
+  .node-action-btn {
+    text-align: center !important;
+    display: block !important;
+    width: 100% !important;
+  }
+}
+

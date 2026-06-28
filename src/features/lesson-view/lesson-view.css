@@ -447,3 +447,32 @@
   }
 }
 
+/* =====================================================================
+   Reconciliation Visualizer Responsiveness
+   ===================================================================== */
+.reconciliation-diff-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: var(--space-4);
+  min-height: 220px;
+}
+
+.reconciliation-scenario-picker {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+  background: var(--color-canvas);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+}
+
+@media (max-width: 600px) {
+  .reconciliation-diff-layout {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  .reconciliation-scenario-picker {
+    flex-direction: column !important;
+    gap: var(--space-2) !important;
+  }
+}

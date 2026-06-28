@@ -58,14 +58,7 @@ export default function ReconciliationDiffVisualization() {
       </p>
 
       {/* Scenario Picker */}
-      <div style={{
-        display: 'flex',
-        gap: 'var(--space-4)',
-        marginBottom: 'var(--space-4)',
-        background: 'var(--color-canvas)',
-        padding: 'var(--space-3)',
-        borderRadius: 'var(--radius-sm)'
-      }}>
+      <div className="reconciliation-scenario-picker">
         <label style={{ fontSize: 'var(--text-sm)', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
           <input
             type="radio"
@@ -89,7 +82,7 @@ export default function ReconciliationDiffVisualization() {
       </div>
 
       {/* Simulation Area */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: 'var(--space-4)', minHeight: '220px' }}>
+      <div className="reconciliation-diff-layout">
         {/* Left column: Trees Comparison */}
         <div style={{
           display: 'flex',

@@ -49,108 +49,46 @@ export default function CodeSandbox({ starterCode, solutionCode, height = '400px
     >
       {/* Editor Pane */}
       <div className="sandbox-editor-pane">
-        <div style={{
-          padding: 'var(--space-2) var(--space-4)',
-          background: 'var(--color-canvas)',
-          borderBottom: '1px solid var(--color-border)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)' }}>
+        <div className="sandbox-header">
+          <div className="sandbox-header-left">
             {solutionCode ? (
               <>
                 <button
                   onClick={() => setActiveTab('editor')}
-                  style={{
-                    fontFamily: 'var(--font-mono)', 
-                    fontSize: 'var(--text-xs)', 
-                    letterSpacing: 'var(--tracking-wider)',
-                    color: activeTab === 'editor' ? 'var(--color-signal)' : 'var(--color-slate)',
-                    background: activeTab === 'editor' ? 'var(--color-signal-subtle)' : 'transparent',
-                    border: 'none',
-                    padding: 'var(--space-1) var(--space-3)',
-                    borderRadius: 'var(--radius-sm)',
-                    fontWeight: activeTab === 'editor' ? 'var(--weight-bold)' : 'var(--weight-normal)',
-                    cursor: 'pointer'
-                  }}
+                  className={`sandbox-tab-btn ${activeTab === 'editor' ? 'active' : ''}`}
                 >
                   MY CODE
                 </button>
                 <button
                   onClick={() => setActiveTab('solution')}
-                  style={{
-                    fontFamily: 'var(--font-mono)', 
-                    fontSize: 'var(--text-xs)', 
-                    letterSpacing: 'var(--tracking-wider)',
-                    color: activeTab === 'solution' ? 'var(--color-signal)' : 'var(--color-slate)',
-                    background: activeTab === 'solution' ? 'var(--color-signal-subtle)' : 'transparent',
-                    border: 'none',
-                    padding: 'var(--space-1) var(--space-3)',
-                    borderRadius: 'var(--radius-sm)',
-                    fontWeight: activeTab === 'solution' ? 'var(--weight-bold)' : 'var(--weight-normal)',
-                    cursor: 'pointer'
-                  }}
+                  className={`sandbox-tab-btn ${activeTab === 'solution' ? 'active' : ''}`}
                 >
                   SOLUTION
                 </button>
               </>
             ) : (
-              <span style={{ 
-                fontFamily: 'var(--font-mono)', 
-                fontSize: 'var(--text-xs)', 
-                letterSpacing: 'var(--tracking-wider)',
-                color: 'var(--color-slate)',
-                padding: 'var(--space-1) var(--space-3)'
-              }}>
+              <span className="sandbox-header-label">
                 EDITOR
               </span>
             )}
             
             {isFullscreen && (
-              <span style={{
-                color: 'var(--color-signal)',
-                fontWeight: 'var(--weight-bold)',
-                background: 'var(--color-signal-subtle)',
-                padding: '2px 6px',
-                borderRadius: 'var(--radius-sm)',
-                fontSize: '10px',
-                marginLeft: 'var(--space-2)'
-              }}>
+              <span className="sandbox-header-badge">
                 ZEN MODE
               </span>
             )}
           </div>
-          <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
+          <div className="sandbox-header-right">
             <button 
               onClick={() => setIsFullscreen(!isFullscreen)}
-              style={{
-                fontSize: 'var(--text-xs)',
-                color: 'var(--color-signal)',
-                fontWeight: 'var(--weight-semibold)',
-                border: '1px solid var(--color-border)',
-                padding: 'var(--space-1) var(--space-2)',
-                borderRadius: 'var(--radius-sm)',
-                background: 'var(--color-canvas)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px'
-              }}
+              className="sandbox-fullscreen-btn"
             >
               {isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
             </button>
             {activeTab === 'editor' && (
               <button 
                 onClick={handleReset}
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  color: 'var(--color-signal)',
-                  textDecoration: 'underline',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
+                className="sandbox-reset-btn"
               >
                 Reset code
               </button>

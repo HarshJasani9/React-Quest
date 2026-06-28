@@ -85,3 +85,113 @@
   }
 }
 
+/* =====================================================================
+   Refactored Sandbox Header Styles & Responsiveness
+   ===================================================================== */
+.sandbox-header {
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-canvas);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.sandbox-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.sandbox-header-label {
+  font-family: var(--font-mono); 
+  font-size: var(--text-xs); 
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-slate);
+  padding: var(--space-1) var(--space-3);
+  text-transform: uppercase;
+}
+
+.sandbox-header-badge {
+  color: var(--color-signal);
+  font-weight: var(--weight-bold);
+  background: var(--color-signal-subtle);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  margin-left: var(--space-2);
+}
+
+.sandbox-header-right {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.sandbox-tab-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-slate);
+  background: transparent;
+  border: none;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: var(--weight-normal);
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.sandbox-tab-btn.active {
+  color: var(--color-signal);
+  background: var(--color-signal-subtle);
+  font-weight: var(--weight-bold);
+}
+
+.sandbox-fullscreen-btn {
+  font-size: var(--text-xs);
+  color: var(--color-signal);
+  font-weight: var(--weight-semibold);
+  border: 1px solid var(--color-border);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-canvas);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.sandbox-fullscreen-btn:hover {
+  background: var(--color-border-subtle);
+}
+
+.sandbox-reset-btn {
+  font-size: var(--text-xs);
+  color: var(--color-signal);
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .sandbox-header {
+    padding: var(--space-1) var(--space-2) !important;
+    gap: var(--space-1) !important;
+  }
+  .sandbox-tab-btn {
+    padding: var(--space-1) var(--space-1.5) !important;
+    font-size: 10px !important;
+  }
+  .sandbox-fullscreen-btn {
+    padding: 2px 6px !important;
+    font-size: 10px !important;
+  }
+  .sandbox-reset-btn {
+    font-size: 10px !important;
+  }
+}
