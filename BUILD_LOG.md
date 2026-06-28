@@ -114,6 +114,8 @@
   15. Modified the CI build workflow to check for the existence of a `lint` script in `package.json` dynamically using `jq` and, if found, run `npm run lint` prior to the production build stage.
   16. Created [Dockerfile](file:///h:/ALL_Projects/ReactLearner/Dockerfile) and [.dockerignore](file:///h:/ALL_Projects/ReactLearner/.dockerignore) for local development containerization, and updated [vite.config.js](file:///h:/ALL_Projects/ReactLearner/vite.config.js) to configure host listening (`0.0.0.0`) and polling watch queries, ensuring hot module reloading operates reliably across Windows-to-Linux container boundary mounts.
   17. Created [docker-compose.yml](file:///h:/ALL_Projects/ReactLearner/docker-compose.yml) to orchestrate multi-container orchestration for local development, defining the `frontend` service (with source mounting and anonymous node_modules volume) and a placeholder `backend` API service to model network composition and start-up ordering.
+  18. Upgraded the Docker Compose configuration to add named node modules volume (`frontend_node_modules`) to avoid file system leaks, environment variable fallbacks (like port mapping variables `VITE_PORT` and `PORT`), container-level health checks using `wget` and `netcat`, long-form `depends_on` wait conditions (`service_healthy`), and an isolated `validator` service running on a `tools` profile.
+
 
 
 
