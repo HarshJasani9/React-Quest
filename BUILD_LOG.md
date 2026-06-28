@@ -113,6 +113,8 @@
   14. Created the GitHub Actions CI build workflow inside [.github/workflows/ci.yml](file:///h:/ALL_Projects/ReactLearner/.github/workflows/ci.yml) to validate pushed commits and pull requests, installing dependencies with `npm ci`, caching npm dependencies, compiling the React+Vite bundle, and uploading the `dist/` directory as an artifact.
   15. Modified the CI build workflow to check for the existence of a `lint` script in `package.json` dynamically using `jq` and, if found, run `npm run lint` prior to the production build stage.
   16. Created [Dockerfile](file:///h:/ALL_Projects/ReactLearner/Dockerfile) and [.dockerignore](file:///h:/ALL_Projects/ReactLearner/.dockerignore) for local development containerization, and updated [vite.config.js](file:///h:/ALL_Projects/ReactLearner/vite.config.js) to configure host listening (`0.0.0.0`) and polling watch queries, ensuring hot module reloading operates reliably across Windows-to-Linux container boundary mounts.
+  17. Created [docker-compose.yml](file:///h:/ALL_Projects/ReactLearner/docker-compose.yml) to orchestrate multi-container orchestration for local development, defining the `frontend` service (with source mounting and anonymous node_modules volume) and a placeholder `backend` API service to model network composition and start-up ordering.
+
 
 
 
