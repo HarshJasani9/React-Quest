@@ -109,6 +109,8 @@
   10. Made the lesson header navbar (`.lesson-header`) sticky at the top of the viewport to ensure navigation elements remain accessible at all times, especially when scrolling through long lesson texts on mobile.
   11. Updated [README.md](file:///h:/ALL_Projects/ReactLearner/README.md) to add details on the client-side `localStorage` progress tracking, confirming that it persists indefinitely (never expires) and can be resumed at any time, with notes on incognito limits and backup export/reset operations.
   12. Fixed mobile viewport layout bugs: reduced text spacing and button padding, configured lesson titles to truncate cleanly without breaking the header grid, turned off card rotations to stop horizontal clipping, and refactored footer navigation to use a stacked full-width layout (`.lesson-footer-nav`) on screens smaller than 520px.
+  13. Performed additional mobile UI polish: optimized the **Curriculum Map** timeline nodes and progress dashboard to stack vertically on narrow devices (preventing title-button overlap), refactored the **CodeSandbox Header** (extracting style rules to [codeSandbox.css](file:///h:/ALL_Projects/ReactLearner/src/features/code-sandbox/codeSandbox.css) and scaling down buttons to prevent overflow), and refactored the **Reconciliation Diff Visualizer** columns to stack vertically on small mobile viewports.
+
 
 
 
