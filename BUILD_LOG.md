@@ -106,6 +106,8 @@
   7. Designed and built **Interactive Concept Checks**: Created [quizRegistry.js](file:///h:/ALL_Projects/ReactLearner/src/content/quizRegistry.js) and [ConceptCheck.jsx](file:///h:/ALL_Projects/ReactLearner/src/features/lesson-view/ConceptCheck.jsx) to test user understanding of analogies and React mechanics, rendering inline before footer navigation.
   8. Created a **Solution Reference Tab** inside [CodeSandbox.jsx](file:///h:/ALL_Projects/ReactLearner/src/features/code-sandbox/CodeSandbox.jsx): If a checkpoint has a solution, learners can toggle between 'My Code' (editable) and 'Solution' (read-only reference) for easy code comparison.
   9. Upgraded the **Profiler HUD** in [SandboxPreviewRoot.jsx](file:///h:/ALL_Projects/ReactLearner/src/features/code-sandbox/SandboxPreviewRoot.jsx) to include a dynamic rolling render timeline showing render duration and phase color-coding for instant performance visualization.
+  10. Made the lesson header navbar (`.lesson-header`) sticky at the top of the viewport to ensure navigation elements remain accessible at all times, especially when scrolling through long lesson texts on mobile.
+
 
 
 
