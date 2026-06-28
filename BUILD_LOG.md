@@ -103,6 +103,10 @@
   4. Verified that the production build completes successfully (`npm run build`).
   5. Implemented a Fullscreen (Zen) Mode toggle for the `CodeSandbox` editor to allow learners to expand their coding workspace to a full-viewport layout with split editor and preview, including body scroll locking and Escape key navigation.
   6. Resolved the layout scroll preservation bug by implementing systematic scroll-to-top restoration on lesson transitions for both individual column scroll containers and the global window.
+  7. Designed and built **Interactive Concept Checks**: Created [quizRegistry.js](file:///h:/ALL_Projects/ReactLearner/src/content/quizRegistry.js) and [ConceptCheck.jsx](file:///h:/ALL_Projects/ReactLearner/src/features/lesson-view/ConceptCheck.jsx) to test user understanding of analogies and React mechanics, rendering inline before footer navigation.
+  8. Created a **Solution Reference Tab** inside [CodeSandbox.jsx](file:///h:/ALL_Projects/ReactLearner/src/features/code-sandbox/CodeSandbox.jsx): If a checkpoint has a solution, learners can toggle between 'My Code' (editable) and 'Solution' (read-only reference) for easy code comparison.
+  9. Upgraded the **Profiler HUD** in [SandboxPreviewRoot.jsx](file:///h:/ALL_Projects/ReactLearner/src/features/code-sandbox/SandboxPreviewRoot.jsx) to include a dynamic rolling render timeline showing render duration and phase color-coding for instant performance visualization.
+
 
 
 
