@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # =====================================================================
+  # Frontend Client Service (React + Vite)
+  # =====================================================================
+  frontend:
+    # Build configuration for the frontend container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Expose and map Vite's dev server port
+    ports:
+      - "5173:5173"
+    # Mount source code volumes for live hot-reloading
+    volumes:
+      - .:/app
+      - /app/node_modules
+    # Define dependency order
+    depends_on:
+      - backend
+    # Restart policy
+    restart: always
+
+  # =====================================================================
+  # Backend API Service (Mock Stub / Placeholder API)
+  # =====================================================================
+  backend:
+    # Use a lightweight Alpine Linux image
+    image: alpine:latest
+    # Execute a simple shell loop hosting a mock TCP server returning JSON status
+    command: >
+      sh -c "echo 'ReactQuest Mock Backend listening on port 8080...' && 
+             while true; do nc -lk -p 8080 -e echo -e 'HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nConnection: close\r\n\r\n{\"status\":\"mock-api\",\"msg\":\"Hello from Docker composition!\"}'; done"
+    # Expose and map the API port
+    ports:
+      - "8080:8080"
+    # Restart policy
+    restart: always
