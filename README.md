@@ -18,6 +18,19 @@ ReactQuest is a self-contained, interactive web-based learning application desig
 
 ---
 
+## 💾 User Progress & Persistence
+
+ReactQuest has a built-in progress tracking system that runs entirely client-side in the browser:
+
+* **Storage Mechanism**: Progress is saved via the browser's native `localStorage` API under the key `reactquest_progress`.
+* **Persistence Duration**: Because it uses `localStorage`, your learning journey is stored **indefinitely** (it never expires). You can close the tab, close your browser, or restart your computer and return weeks or months later to resume exactly where you left off.
+* **Incognito/Private Browsing**: If you run the application in an incognito or private window, progress will only persist for that active session and will be cleared as soon as the private browser tab/window is closed.
+* **Backup & Reset**: 
+  * **Export Progress**: You can export your progress as a `.json` backup file from the Curriculum Map dashboard.
+  * **Reset Progress**: You can clear all completed lessons and lock states to start the quest fresh by clicking the **Reset Progress** button.
+
+---
+
 ## 🛠️ Technology Stack
 
 * **Core**: React 18, React DOM, React Router v6
