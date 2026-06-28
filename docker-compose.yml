@@ -5,35 +5,68 @@ services:
   # Frontend Client Service (React + Vite)
   # =====================================================================
   frontend:
-    # Build configuration for the frontend container
     build:
       context: .
       dockerfile: Dockerfile
-    # Expose and map Vite's dev server port
     ports:
-      - "5173:5173"
-    # Mount source code volumes for live hot-reloading
+      - "${VITE_PORT:-5173}:5173"
     volumes:
       - .:/app
-      - /app/node_modules
-    # Define dependency order
+      # Named volume to protect container node_modules from host override
+      - frontend_node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_PORT=${VITE_PORT:-5173}
+    # Long-form dependencies block ensuring the backend is HEALTHY, not just started
     depends_on:
-      - backend
-    # Restart policy
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5173/"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     restart: always
 
   # =====================================================================
   # Backend API Service (Mock Stub / Placeholder API)
   # =====================================================================
   backend:
-    # Use a lightweight Alpine Linux image
     image: alpine:latest
-    # Execute a simple shell loop hosting a mock TCP server returning JSON status
     command: >
-      sh -c "echo 'ReactQuest Mock Backend listening on port 8080...' && 
-             while true; do nc -lk -p 8080 -e echo -e 'HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nConnection: close\r\n\r\n{\"status\":\"mock-api\",\"msg\":\"Hello from Docker composition!\"}'; done"
-    # Expose and map the API port
+      sh -c "echo 'ReactQuest Mock Backend listening on port $PORT...' && 
+             while true; do nc -lk -p $PORT -e echo -e 'HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nConnection: close\r\n\r\n{\"status\":\"mock-api\",\"msg\":\"Hello from Docker composition!\"}'; done"
     ports:
-      - "8080:8080"
-    # Restart policy
+      - "${PORT:-8080}:${PORT:-8080}"
+    environment:
+      - PORT=${PORT:-8080}
+      - API_ENV=development
+    # Healthcheck to monitor port readiness using netcat
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost ${PORT:-8080}"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     restart: always
+
+  # =====================================================================
+  # Curriculum Validator (Optional Developer Tool Service)
+  # =====================================================================
+  validator:
+    profiles:
+      - tools
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["node", "scratch/validate_curriculum.js"]
+    volumes:
+      - .:/app
+      - frontend_node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+
+# Named volumes definition block
+volumes:
+  frontend_node_modules:
