@@ -117,6 +117,8 @@
   18. Upgraded the Docker Compose configuration to add named node modules volume (`frontend_node_modules`) to avoid file system leaks, environment variable fallbacks (like port mapping variables `VITE_PORT` and `PORT`), container-level health checks using `wget` and `netcat`, long-form `depends_on` wait conditions (`service_healthy`), and an isolated `validator` service running on a `tools` profile.
   19. Integrated Docker with GitHub Actions inside [.github/workflows/ci.yml](file:///h:/ALL_Projects/ReactLearner/.github/workflows/ci.yml) by adding a concurrent `docker-build` job that checks out the codebase, sets up Buildx caching, and runs `docker compose build` to verify both the frontend web app and developer tools images compile successfully (failing the workflow run if any compilation errors occur).
   20. Updated [README.md](file:///h:/ALL_Projects/ReactLearner/README.md) to add a **Containerization & CI/CD** section detailing Docker dev container commands (`docker compose up`, `docker compose build`), hot-reloading configurations, tools profile usage, and GitHub Actions workflow specifications.
+  21. Fixed a Docker Compose configuration validation error on GitHub Actions: removed the legacy `version` header to trigger the modern Compose Specification (which natively supports long-form `depends_on` healthcheck conditions) and escaped container-level shell variables to `$$PORT` to prevent compose-time host interpolation warnings.
+
 
 
 
