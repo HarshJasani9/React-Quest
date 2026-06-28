@@ -360,3 +360,90 @@
   display: flex;
   flex-direction: column;
 }
+
+/* =====================================================================
+   Mobile Responsiveness Overrides
+   ===================================================================== */
+@media (max-width: 768px) {
+  .lesson-header {
+    padding: var(--space-3) var(--space-4) !important;
+    height: auto !important;
+    min-height: 55px !important;
+    flex-wrap: wrap !important;
+    gap: var(--space-2) !important;
+  }
+
+  .header-left {
+    gap: var(--space-2) !important;
+  }
+
+  .lesson-title-display {
+    font-size: var(--text-sm) !important;
+    max-width: 160px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .back-link {
+    font-size: var(--text-xs) !important;
+  }
+
+  .progress-dots {
+    gap: 4px !important;
+  }
+
+  .progress-dot {
+    width: 8px !important;
+    height: 8px !important;
+  }
+
+  .lesson-content-column {
+    padding: var(--space-6) var(--space-4) !important;
+    overflow-y: visible !important;
+    height: auto !important;
+  }
+
+  .lesson-sandbox-column {
+    padding: var(--space-6) var(--space-4) !important;
+    border-left: none !important;
+    border-top: 1px solid var(--color-border) !important;
+  }
+
+  .checkpoint-sandbox-wrapper {
+    min-height: auto !important;
+  }
+
+  .analogy-card {
+    padding: var(--space-5) var(--space-4) !important;
+    transform: none !important; /* Disable rotation to prevent screen clipping */
+  }
+
+  .analogy-card:hover {
+    transform: scale(1.01) !important;
+  }
+}
+
+/* Footer Navigation and Buttons */
+.lesson-footer-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-6);
+  gap: var(--space-4);
+}
+
+@media (max-width: 520px) {
+  .lesson-footer-nav {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .lesson-footer-nav > button,
+  .lesson-footer-nav > a {
+    text-align: center !important;
+    width: 100% !important;
+  }
+}
+

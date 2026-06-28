@@ -257,14 +257,7 @@ export default function LessonView() {
             <ConceptCheck lessonId={lesson.id} />
 
             {/* Footer Navigation within Column */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginTop: 'var(--space-8)',
-              borderTop: '1px solid var(--color-border)',
-              paddingTop: 'var(--space-6)'
-            }}>
+            <div className="lesson-footer-nav">
               {prevLesson ? (
                 <button
                   onClick={() => navigate(`/lesson/${prevLesson.id}`)}
