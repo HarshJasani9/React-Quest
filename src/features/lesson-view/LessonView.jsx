@@ -5,6 +5,7 @@ import { useProgress } from '../progress/ProgressContext.jsx'
 import AnalogyBlock from './AnalogyBlock.jsx'
 import ExplanationBlock from './ExplanationBlock.jsx'
 import MisconceptionCallout from './MisconceptionCallout.jsx'
+import ConceptCheck from './ConceptCheck.jsx'
 import CodeSandbox from '../code-sandbox/CodeSandbox.jsx'
 import ReactMarkdown from 'react-markdown'
 import FiberTreeVisualization from '../internals-visualizations/FiberTreeVisualization.jsx'
@@ -251,6 +252,9 @@ export default function LessonView() {
 
             {/* Common Misconception Callout */}
             <MisconceptionCallout misconception={lesson.misconception} />
+
+            {/* Concept Checks (Analogy Flipcards/Quizzes) */}
+            <ConceptCheck lessonId={lesson.id} />
 
             {/* Footer Navigation within Column */}
             <div style={{

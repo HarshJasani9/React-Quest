@@ -6,9 +6,10 @@ import SandboxPreviewRoot from './SandboxPreviewRoot.jsx'
 import VirtualDomInspector from '../internals-visualizations/VirtualDomInspector.jsx'
 import './codeSandbox.css'
 
-export default function CodeSandbox({ starterCode, height = '400px', inspectVirtualDom = false }) {
+export default function CodeSandbox({ starterCode, solutionCode, height = '400px', inspectVirtualDom = false }) {
   const [code, setCode] = useState(starterCode || '')
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [activeTab, setActiveTab] = useState('editor') // 'editor' | 'solution'
   
   // Transform the raw string input
   const { code: transformedCode, error: transformError } = useBabelTransform(code, 300)
@@ -56,16 +57,56 @@ export default function CodeSandbox({ starterCode, height = '400px', inspectVirt
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <span style={{ 
-            fontFamily: 'var(--font-mono)', 
-            fontSize: 'var(--text-xs)', 
-            letterSpacing: 'var(--tracking-wider)',
-            color: 'var(--color-slate)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--space-2)'
-          }}>
-            EDITOR
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)' }}>
+            {solutionCode ? (
+              <>
+                <button
+                  onClick={() => setActiveTab('editor')}
+                  style={{
+                    fontFamily: 'var(--font-mono)', 
+                    fontSize: 'var(--text-xs)', 
+                    letterSpacing: 'var(--tracking-wider)',
+                    color: activeTab === 'editor' ? 'var(--color-signal)' : 'var(--color-slate)',
+                    background: activeTab === 'editor' ? 'var(--color-signal-subtle)' : 'transparent',
+                    border: 'none',
+                    padding: 'var(--space-1) var(--space-3)',
+                    borderRadius: 'var(--radius-sm)',
+                    fontWeight: activeTab === 'editor' ? 'var(--weight-bold)' : 'var(--weight-normal)',
+                    cursor: 'pointer'
+                  }}
+                >
+                  MY CODE
+                </button>
+                <button
+                  onClick={() => setActiveTab('solution')}
+                  style={{
+                    fontFamily: 'var(--font-mono)', 
+                    fontSize: 'var(--text-xs)', 
+                    letterSpacing: 'var(--tracking-wider)',
+                    color: activeTab === 'solution' ? 'var(--color-signal)' : 'var(--color-slate)',
+                    background: activeTab === 'solution' ? 'var(--color-signal-subtle)' : 'transparent',
+                    border: 'none',
+                    padding: 'var(--space-1) var(--space-3)',
+                    borderRadius: 'var(--radius-sm)',
+                    fontWeight: activeTab === 'solution' ? 'var(--weight-bold)' : 'var(--weight-normal)',
+                    cursor: 'pointer'
+                  }}
+                >
+                  SOLUTION
+                </button>
+              </>
+            ) : (
+              <span style={{ 
+                fontFamily: 'var(--font-mono)', 
+                fontSize: 'var(--text-xs)', 
+                letterSpacing: 'var(--tracking-wider)',
+                color: 'var(--color-slate)',
+                padding: 'var(--space-1) var(--space-3)'
+              }}>
+                EDITOR
+              </span>
+            )}
+            
             {isFullscreen && (
               <span style={{
                 color: 'var(--color-signal)',
@@ -73,12 +114,13 @@ export default function CodeSandbox({ starterCode, height = '400px', inspectVirt
                 background: 'var(--color-signal-subtle)',
                 padding: '2px 6px',
                 borderRadius: 'var(--radius-sm)',
-                fontSize: '10px'
+                fontSize: '10px',
+                marginLeft: 'var(--space-2)'
               }}>
                 ZEN MODE
               </span>
             )}
-          </span>
+          </div>
           <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
             <button 
               onClick={() => setIsFullscreen(!isFullscreen)}
@@ -98,31 +140,53 @@ export default function CodeSandbox({ starterCode, height = '400px', inspectVirt
             >
               {isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
             </button>
-            <button 
-              onClick={handleReset}
-              style={{
-                fontSize: 'var(--text-xs)',
-                color: 'var(--color-signal)',
-                textDecoration: 'underline',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              Reset code
-            </button>
+            {activeTab === 'editor' && (
+              <button 
+                onClick={handleReset}
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  color: 'var(--color-signal)',
+                  textDecoration: 'underline',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
+              >
+                Reset code
+              </button>
+            )}
           </div>
         </div>
+
+        {activeTab === 'solution' && (
+          <div style={{
+            padding: 'var(--space-2) var(--space-4)',
+            background: 'var(--color-signal-subtle)',
+            color: 'var(--color-signal)',
+            fontSize: 'var(--text-xs)',
+            fontFamily: 'var(--font-body)',
+            borderBottom: '1px solid var(--color-border)',
+            fontWeight: 'var(--weight-semibold)'
+          }}>
+            ℹ️ Solution Reference (Read-Only). Use this to compare with your implementation.
+          </div>
+        )}
+
         <div style={{ flex: 1, overflow: 'auto', background: '#fff' }}>
           <CodeMirror
-            value={code}
+            value={activeTab === 'editor' ? code : (solutionCode || '')}
             height="100%"
             extensions={[javascript({ jsx: true })]}
-            onChange={(value) => setCode(value)}
+            onChange={(value) => {
+              if (activeTab === 'editor') {
+                setCode(value)
+              }
+            }}
             theme="light"
+            readOnly={activeTab === 'solution'}
             basicSetup={{
               lineNumbers: true,
-              highlightActiveLineGutter: true,
+              highlightActiveLineGutter: activeTab === 'editor',
               foldGutter: false,
               dropCursor: false,
               allowMultipleSelections: false,

@@ -60,7 +60,37 @@ export default function SandboxPreviewRoot({ transformedCode }) {
     const handleProfile = (id, phase, actualDuration) => {
       renderCount++
       if (hudRef.current) {
-        hudRef.current.innerText = `Profiler HUD — Render: ${phase} | Time: ${actualDuration.toFixed(2)}ms | Count: ${renderCount}`
+        const textEl = hudRef.current.querySelector('.hud-text')
+        const timelineEl = hudRef.current.querySelector('.hud-timeline')
+        
+        if (textEl) {
+          textEl.innerText = `Profiler HUD — Render: ${phase} | Time: ${actualDuration.toFixed(2)}ms | Count: ${renderCount}`
+        }
+        
+        if (timelineEl) {
+          const bar = document.createElement('div')
+          bar.style.width = '6px'
+          // Scaled height: 1ms = 12px, min 4px, max 30px
+          const barHeight = Math.max(4, Math.min(30, actualDuration * 12))
+          bar.style.height = `${barHeight}px`
+          // Colors: mount is signal green, update is slate, slow updates (>3ms) are caution red
+          let color = '#3d4451'
+          if (phase === 'mount') {
+            color = '#2d6a4f'
+          } else if (actualDuration > 3) {
+            color = '#9a3b26'
+          }
+          bar.style.backgroundColor = color
+          bar.style.borderRadius = '1px'
+          bar.style.transition = 'height 0.2s ease'
+          bar.title = `#${renderCount} (${phase}): ${actualDuration.toFixed(2)}ms`
+          
+          timelineEl.appendChild(bar)
+          
+          if (timelineEl.children.length > 20) {
+            timelineEl.removeChild(timelineEl.firstChild)
+          }
+        }
       }
     }
 
@@ -96,16 +126,21 @@ export default function SandboxPreviewRoot({ transformedCode }) {
             background: 'var(--color-paper)',
             border: '1px solid var(--color-border)',
             borderRadius: 'var(--radius-sm)',
-            padding: '2px 8px',
+            padding: 'var(--space-2) var(--space-3)',
             fontSize: 'var(--text-xs)',
             fontFamily: 'var(--font-mono)',
             color: 'var(--color-slate)',
             zIndex: 10,
             pointerEvents: 'none',
-            boxShadow: 'var(--shadow-card)'
+            boxShadow: 'var(--shadow-card)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+            gap: '4px'
           }}
         >
-          Waiting for render...
+          <div className="hud-text">Waiting for render...</div>
+          <div className="hud-timeline" style={{ display: 'flex', gap: '2px', alignItems: 'flex-end', height: '30px', minWidth: '120px', justifyContent: 'flex-end' }}></div>
         </div>
       )}
 
