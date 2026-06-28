@@ -108,6 +108,8 @@
   9. Upgraded the **Profiler HUD** in [SandboxPreviewRoot.jsx](file:///h:/ALL_Projects/ReactLearner/src/features/code-sandbox/SandboxPreviewRoot.jsx) to include a dynamic rolling render timeline showing render duration and phase color-coding for instant performance visualization.
   10. Made the lesson header navbar (`.lesson-header`) sticky at the top of the viewport to ensure navigation elements remain accessible at all times, especially when scrolling through long lesson texts on mobile.
   11. Updated [README.md](file:///h:/ALL_Projects/ReactLearner/README.md) to add details on the client-side `localStorage` progress tracking, confirming that it persists indefinitely (never expires) and can be resumed at any time, with notes on incognito limits and backup export/reset operations.
+  12. Fixed mobile viewport layout bugs: reduced text spacing and button padding, configured lesson titles to truncate cleanly without breaking the header grid, turned off card rotations to stop horizontal clipping, and refactored footer navigation to use a stacked full-width layout (`.lesson-footer-nav`) on screens smaller than 520px.
+
 
 
 
